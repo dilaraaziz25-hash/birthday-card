@@ -149,7 +149,7 @@
 
   .msg-salutation {
     font-family: 'EB Garamond', serif;
-    font-style: italic; font-size: 26px;
+    font-style: italic; font-size: 28px;
     color: #f0d060;
     margin-bottom: 6px;
     opacity: 0; transform: translateY(14px);
@@ -157,7 +157,7 @@
   }
   .msg-subtitle {
     font-family: 'EB Garamond', serif;
-    font-style: italic; font-size: 17px;
+    font-style: italic; font-size: 20px;
     color: #d4af37;
     margin-bottom: 16px;
     opacity: 0; transform: translateY(14px);
@@ -174,7 +174,7 @@
   }
   .msg-closing {
     font-family: 'EB Garamond', serif;
-    font-style: italic; font-size: 18px;
+    font-style: italic; font-size: 20px;
     color: #f0d060;
     opacity: 0; transform: translateY(14px);
     transition: opacity 0.7s 1.3s ease, transform 0.7s 1.3s ease;
@@ -192,6 +192,7 @@
   .scene.open .msg-text,
   .scene.open .msg-closing { opacity: 1; transform: translateY(0); }
   .scene.open .stars { opacity: 0.45; }
+  .scene.open .ornamental-divider { opacity: 1 !important; }
 
 </style>
 </head>
@@ -223,15 +224,39 @@
     <div class="corner c-tl"></div><div class="corner c-tr"></div>
     <div class="corner c-bl"></div><div class="corner c-br"></div>
     <div class="inside-content">
-      <div class="greeting">Ad Günün Mübarək</div>
-      <div class="divider"></div>
       <div class="msg-salutation">Ömrüm !</div>
       <div class="msg-subtitle">Həyatımın sonsuz sevdası !</div>
       <div class="msg-text">
-        Ad gününü bütün qəlbimlə təbrik edirəm 💚<br><br>
+        Ad gününü bütün qəlbimlə təbrik edirəm <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-0.15em;display:inline-block;"><defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f5e47a"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#b8960c"/></linearGradient></defs><path fill="url(#g2)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:10px; width:100%; margin: 14px 0; opacity:0; transition: opacity 0.7s 1.15s ease;" class="ornamental-divider">
+        <div style="flex:1; height:1px; background: linear-gradient(to right, transparent, #d4af37);"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 12" style="width:44px; flex-shrink:0; overflow:visible; background:transparent;">
+          <line x1="0" y1="6" x2="10" y2="6" stroke="#d4af37" stroke-width="0.8" opacity="0.7"/>
+          <polygon points="14,6 17,3 20,6 17,9" style="fill:#d4af37;" opacity="0.9"/>
+          <polygon points="20,6 23,3 26,6 23,9" style="fill:#b8960c;" opacity="0.7"/>
+          <polygon points="26,6 29,3 32,6 29,9" style="fill:#d4af37;" opacity="0.9"/>
+          <line x1="30" y1="6" x2="40" y2="6" stroke="#d4af37" stroke-width="0.8" opacity="0.7"/>
+        </svg>
+        <div style="flex:1; height:1px; background: linear-gradient(to left, transparent, #d4af37);"></div>
+      </div>
+
+      <div class="msg-text" style="margin-top:0;">
         Diləyim budur ki, həyatın sənə bəxş etdiyi hər gün sənə gülər üz, sevinc və xoşbəxtlik gətirsin.
       </div>
-      <div class="msg-closing">Sağlıqlı və uzun ömrün olsun, Elxanım <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-0.15em;display:inline-block;"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f5e47a"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#b8960c"/></linearGradient></defs><path fill="url(#g)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+      <div style="display:flex; align-items:center; gap:10px; width:100%; margin: 14px 0; opacity:0; transition: opacity 0.7s 1.25s ease;" class="ornamental-divider">
+        <div style="flex:1; height:1px; background: linear-gradient(to right, transparent, #d4af37);"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 12" style="width:44px; flex-shrink:0; overflow:visible; background:transparent;">
+          <line x1="0" y1="6" x2="10" y2="6" stroke="#d4af37" stroke-width="0.8" opacity="0.7"/>
+          <polygon points="14,6 17,3 20,6 17,9" style="fill:#d4af37;" opacity="0.9"/>
+          <polygon points="20,6 23,3 26,6 23,9" style="fill:#b8960c;" opacity="0.7"/>
+          <polygon points="26,6 29,3 32,6 29,9" style="fill:#d4af37;" opacity="0.9"/>
+          <line x1="30" y1="6" x2="40" y2="6" stroke="#d4af37" stroke-width="0.8" opacity="0.7"/>
+        </svg>
+        <div style="flex:1; height:1px; background: linear-gradient(to left, transparent, #d4af37);"></div>
+      </div>
+      <div class="msg-closing">Sağlıqlı və uzun ömrün olsun, <span style="font-size:24px;">Elxanım</span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-0.15em;display:inline-block;"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f5e47a"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#b8960c"/></linearGradient></defs><path fill="url(#g)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
       <div class="stars">✦ &ensp; ✦ &ensp; ✦</div>
     </div>
   </div>
@@ -243,6 +268,11 @@ function openCard() {
   document.getElementById('scene').classList.add('open');
   setTimeout(launchConfetti, 300);
 }
+
+document.querySelector('.page-inside').addEventListener('click', function() {
+  const scene = document.getElementById('scene');
+  scene.classList.remove('open');
+});
 
 // ── CONFETTI ──
 const canvas = document.getElementById('confetti-canvas');
