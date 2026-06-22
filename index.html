@@ -147,21 +147,42 @@
     margin: 0 auto 20px;
   }
 
+  /* ── KEYFRAMES ── */
+  @keyframes zoomFlash {
+    0%   { opacity: 0; transform: scale(2.2); filter: brightness(3); }
+    30%  { opacity: 1; transform: scale(1.05); filter: brightness(1.8); }
+    55%  { transform: scale(0.97); filter: brightness(1); }
+    75%  { transform: scale(1.02); }
+    100% { opacity: 1; transform: scale(1); filter: brightness(1); }
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
+    50% { box-shadow: 0 0 40px rgba(212,175,55,0.8), 0 0 80px rgba(212,175,55,0.4); }
+  }
+
+  @keyframes photoAppear {
+    from { transform: scale(0.8); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+
+  .photo-ring {
+    animation: photoAppear 1.5s ease-out forwards, glowPulse 1.5s 1.5s ease-in-out infinite;
+  }
+
   .msg-salutation {
     font-family: 'EB Garamond', serif;
     font-style: italic; font-size: 28px;
     color: #f0d060;
     margin-bottom: 6px;
-    opacity: 0; transform: translateY(14px);
-    transition: opacity 0.7s 0.4s ease, transform 0.7s 0.4s ease;
+    opacity: 0;
   }
   .msg-subtitle {
     font-family: 'EB Garamond', serif;
     font-style: italic; font-size: 20px;
     color: #d4af37;
     margin-bottom: 16px;
-    opacity: 0; transform: translateY(14px);
-    transition: opacity 0.7s 0.7s ease, transform 0.7s 0.7s ease;
+    opacity: 0;
   }
   .msg-text {
     font-family: 'EB Garamond', serif;
@@ -169,30 +190,46 @@
     color: #e8c84a;
     line-height: 1.8;
     margin-bottom: 16px;
-    opacity: 0; transform: translateY(14px);
-    transition: opacity 0.7s 1s ease, transform 0.7s 1s ease;
+    opacity: 0;
   }
   .msg-closing {
     font-family: 'EB Garamond', serif;
     font-style: italic; font-size: 20px;
     color: #f0d060;
-    opacity: 0; transform: translateY(14px);
-    transition: opacity 0.7s 1.3s ease, transform 0.7s 1.3s ease;
+    opacity: 0;
   }
   .stars {
     margin-top: 16px; font-size: 13px;
     color: #d4af37; letter-spacing: 0.5em;
     opacity: 0;
-    transition: opacity 0.7s 1.6s ease;
+    transition: opacity 0.7s 1.9s ease;
   }
 
-  /* trigger text fade-in when scene is open */
-  .scene.open .msg-salutation,
-  .scene.open .msg-subtitle,
-  .scene.open .msg-text,
-  .scene.open .msg-closing { opacity: 1; transform: translateY(0); }
-  .scene.open .stars { opacity: 0.45; }
-  .scene.open .ornamental-divider { opacity: 1 !important; }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* trigger animations when card opens */
+  .scene.open .msg-salutation {
+    animation: zoomFlash 2.4s 0.3s ease-out forwards, heartbeat 4s 2.7s ease-in-out infinite;
+  }
+  .scene.open .msg-subtitle {
+    animation: zoomFlash 2.4s 1.0s ease-out forwards;
+  }
+  .scene.open .msg-text {
+    animation: zoomFlash 2.4s 1.8s ease-out forwards;
+  }
+  .scene.open .msg-closing {
+    animation: zoomFlash 2.4s 2.6s ease-out forwards;
+  }
+  .scene.open .stars { opacity: 0.45; animation: twinkle 2s 2s infinite; }
+  .scene.open .ornamental-divider { opacity: 1 !important; transition: opacity 0.7s 1.2s ease; }
 
 </style>
 </head>
@@ -215,7 +252,7 @@
       <div class="orn">
         <span class="orn-line"></span><span class="orn-dot"></span><span class="orn-line r"></span>
       </div>
-      <button class="open-btn" onclick="openCard()">✦ Kartı aç ✦</button>
+      <button class="open-btn" onclick="openCard()">Doğum günün mübarək 💛</button>
     </div>
   </div>
 
@@ -264,9 +301,43 @@
 </div>
 
 <script>
+function playChime() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  // Happy Birthday first 5 notes: G G A G C B
+  const notes = [
+    { freq: 392, start: 0.0,  dur: 0.18 },
+    { freq: 392, start: 0.22, dur: 0.18 },
+    { freq: 440, start: 0.44, dur: 0.32 },
+    { freq: 392, start: 0.80, dur: 0.32 },
+    { freq: 523, start: 1.16, dur: 0.32 },
+    { freq: 494, start: 1.52, dur: 0.55 },
+    { freq: 392, start: 2.20, dur: 0.18 },
+    { freq: 392, start: 2.42, dur: 0.18 },
+    { freq: 440, start: 2.64, dur: 0.32 },
+    { freq: 392, start: 3.00, dur: 0.32 },
+    { freq: 587, start: 3.36, dur: 0.32 },
+    { freq: 523, start: 3.72, dur: 0.55 },
+  ];
+  notes.forEach(n => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.value = n.freq;
+    const t = ctx.currentTime + n.start;
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(0.35, t + 0.03);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + n.dur + 0.15);
+    osc.start(t);
+    osc.stop(t + n.dur + 0.2);
+  });
+}
+
 function openCard() {
   document.getElementById('scene').classList.add('open');
   setTimeout(launchConfetti, 300);
+  playChime();
 }
 
 document.querySelector('.page-inside').addEventListener('click', function() {
